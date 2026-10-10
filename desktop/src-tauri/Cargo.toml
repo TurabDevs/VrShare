@@ -35,9 +35,3 @@ bytes = "1"
 [features]
 default = [ "custom-protocol" ]
 custom-protocol = [ "tauri/custom-protocol" ]
-
-# Ultra-lite release build: minimize binary size
-[profile.release]
-strip = true
-opt-level = "z"
-lto = "thin"
