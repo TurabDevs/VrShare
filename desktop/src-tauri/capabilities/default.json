@@ -1,0 +1,1 @@
+{"$schema":"../gen/schemas/desktop-schema.json","description":"Default capabilities for VrShare","identifier":"default","permissions":["core:default","core:event:default","dialog:allow-open"],"windows":["main"]}

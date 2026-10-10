@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VrShare</title>
+<style>
+:root{
+  --bg:#0f1420; --bg2:#161d2e; --bg3:#1d2539; --line:#2a3550;
+  --txt:#e8edf7; --mut:#8b96b3; --acc:#3b82f6; --acc2:#2563eb;
+  --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--txt);height:100vh;display:flex;flex-direction:column;overflow:hidden}
+header{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--bg2);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:18px}
+.logo .dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--acc),#8b5cf6);display:flex;align-items:center;justify-content:center;font-size:15px}
+#devName{background:var(--bg3);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:6px 10px;font-size:14px;width:220px}
+#devName:focus{outline:none;border-color:var(--acc)}
+.hdr-sp{flex:1}
+.hbtn{background:var(--bg3);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:7px 12px;cursor:pointer;font-size:13px}
+.hbtn:hover{border-color:var(--acc)}
+#wrap{flex:1;display:flex;min-height:0}
+aside{width:270px;background:var(--bg2);border-right:1px solid var(--line);display:flex;flex-direction:column}
+aside h3{padding:12px 14px 6px;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--mut)}
+#peers{flex:1;overflow-y:auto;padding:0 10px 10px}
+.peer{background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:10px;margin-bottom:8px;cursor:pointer}
+.peer.sel{border-color:var(--acc)}
+.peer .nm{font-weight:600;font-size:14px;display:flex;align-items:center;gap:8px}
+.odot{width:9px;height:9px;border-radius:50%;background:var(--ok);box-shadow:0 0 6px var(--ok)}
+.badge{font-size:10px;background:var(--bg);border:1px solid var(--line);border-radius:20px;padding:1px 8px;color:var(--mut)}
+.badge.trust{color:var(--ok);border-color:var(--ok)}
+.peer .acts{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
+.pbtn{background:var(--bg);border:1px solid var(--line);color:var(--txt);border-radius:7px;padding:5px 9px;font-size:12px;cursor:pointer}
+.pbtn:hover{border-color:var(--acc)}
+.pbtn.danger:hover{border-color:var(--bad);color:var(--bad)}
+.empty{color:var(--mut);font-size:13px;padding:16px;text-align:center}
+main{flex:1;display:flex;flex-direction:column;min-width:0}
+.tabs{display:flex;gap:4px;padding:10px 16px 0;border-bottom:1px solid var(--line);background:var(--bg)}
+.tab{padding:9px 18px;cursor:pointer;font-size:14px;color:var(--mut);border-bottom:2px solid transparent}
+.tab.on{color:var(--txt);border-bottom-color:var(--acc);font-weight:600}
+.tabbody{flex:1;overflow-y:auto;padding:16px;display:none}
+.tabbody.on{display:block}
+#drop{border:2px dashed var(--line);border-radius:14px;padding:38px;text-align:center;color:var(--mut);margin-bottom:14px;transition:.15s}
+#drop.over{border-color:var(--acc);color:var(--txt);background:rgba(59,130,246,.07)}
+#drop b{color:var(--txt)}
+.trow{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px}
+.trow .tn{font-size:14px;font-weight:600;display:flex;justify-content:space-between;gap:8px}
+.trow .bar{height:7px;background:var(--bg);border-radius:5px;margin-top:8px;overflow:hidden}
+.trow .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--acc2),var(--acc));border-radius:5px;transition:width .2s}
+.trow .meta{font-size:12px;color:var(--mut);margin-top:5px}
+textarea#clipBox{width:100%;height:130px;background:var(--bg2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px;font-size:14px;resize:vertical}
+textarea#clipBox:focus{outline:none;border-color:var(--acc)}
+.row{display:flex;gap:8px;margin-top:10px;align-items:center;flex-wrap:wrap}
+.btn{background:var(--acc);border:none;color:#fff;border-radius:8px;padding:9px 16px;font-size:14px;cursor:pointer}
+.btn:hover{background:var(--acc2)}
+.btn.ghost{background:var(--bg3);border:1px solid var(--line)}
+.chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mut);cursor:pointer}
+#clipIn{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:12px;margin-top:14px;max-height:220px;overflow-y:auto}
+#clipIn .ci{border-bottom:1px solid var(--line);padding:8px 0;font-size:13px;word-break:break-word}
+#clipIn .ci:last-child{border-bottom:none}
+#clipIn .ct{font-size:11px;color:var(--mut)}
+#logList .le{font-size:13px;padding:7px 4px;border-bottom:1px solid var(--line);color:var(--mut)}
+#logList .le b{color:var(--txt);font-weight:500}
+/* modal */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:50}
+.modal.on{display:flex}
+.card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:24px;width:420px;max-width:92vw}
+.card h2{font-size:17px;margin-bottom:6px}
+.card p{font-size:13px;color:var(--mut);margin-bottom:12px}
+.pin{font-size:42px;font-weight:800;letter-spacing:.35em;text-align:center;color:var(--acc);margin:14px 0;font-family:monospace}
+.mrow{display:flex;gap:10px;justify-content:flex-end;margin-top:16px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;color:var(--mut);margin-bottom:5px}
+.field input[type=text]{width:100%;background:var(--bg3);border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 10px;font-size:14px}
+.field input[type=text]:focus{outline:none;border-color:var(--acc)}
+.about{margin-top:14px;padding-top:12px;border-top:1px solid var(--line);font-size:12px;color:var(--mut);line-height:1.6}
+.about a{color:var(--acc);text-decoration:none}
+#toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--bg3);border:1px solid var(--acc);color:var(--txt);padding:10px 20px;border-radius:10px;font-size:14px;display:none;z-index:99}
+#selInfo{padding:8px 16px;font-size:12px;color:var(--mut);background:var(--bg);border-bottom:1px solid var(--line)}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo"><span class="dot">V</span>VrShare</div>
+  <input id="devName" placeholder="Device name" title="Device name (Enter to save)">
+  <div class="hdr-sp"></div>
+  <button class="hbtn" id="btnSettings">⚙ Settings</button>
+</header>
+<div id="wrap">
+  <aside>
+    <h3>Devices on this WiFi</h3>
+    <div id="peers"></div>
+  </aside>
+  <main>
+    <div id="selInfo">Select a device from the left to send files or clipboard.</div>
+    <div class="tabs">
+      <div class="tab on" data-t="files">📁 Files</div>
+      <div class="tab" data-t="clip">📋 Clipboard</div>
+      <div class="tab" data-t="act">📝 Activity</div>
+    </div>
+    <div class="tabbody on" id="tb-files">
+      <div id="drop">📂 <b>Drag &amp; drop files here</b> to send to the selected device<br>or <button class="btn ghost" id="btnPick" style="margin-top:10px">Choose files…</button></div>
+      <div id="transfers"></div>
+    </div>
+    <div class="tabbody" id="tb-clip">
+      <textarea id="clipBox" placeholder="Type or paste text here, then send it to the selected device…"></textarea>
+      <div class="row">
+        <button class="btn" id="btnSendText">Send text</button>
+        <button class="btn ghost" id="btnSendClip">Send my clipboard</button>
+        <label class="chk"><input type="checkbox" id="chkSync"> Auto-sync clipboard with trusted devices</label>
+      </div>
+      <div id="clipIn"><div class="ct">Received</div><div id="clipInList"><div class="empty">Nothing received yet.</div></div></div>
+    </div>
+    <div class="tabbody" id="tb-act">
+      <div id="logList"></div>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="pairModal">
+  <div class="card">
+    <h2>🔗 Pairing request</h2>
+    <p id="pairInfo"></p>
+    <p>Ask the device owner to confirm this PIN on their screen, then accept:</p>
+    <div class="pin" id="pairPin">------</div>
+    <div class="mrow">
+      <button class="btn ghost" id="btnReject">Reject</button>
+      <button class="btn" id="btnAccept">Accept &amp; Pair</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal" id="setModal">
+  <div class="card">
+    <h2>⚙ Settings</h2>
+    <div class="field"><label>Download folder</label><input type="text" id="setDl"></div>
+    <div class="field"><label class="chk"><input type="checkbox" id="setAuto"> Auto-accept incoming files</label></div>
+    <div class="field"><label class="chk"><input type="checkbox" id="setSync"> Auto-sync clipboard with trusted devices</label></div>
+    <div class="field"><label class="chk"><input type="checkbox" id="setStart" disabled> Start with Windows <span style="font-size:11px">(enable via Task Manager → Startup, coming soon)</span></label></div>
+    <div class="mrow">
+      <button class="btn ghost" id="btnSetCancel">Cancel</button>
+      <button class="btn" id="btnSetSave">Save</button>
+    </div>
+    <div class="about">
+      <b>VrShare</b> v<span id="ver">1.0.0</span> — share files, clipboard and control your PC over your local WiFi. No cloud, no accounts.<br>
+      Developed by <b>Asim</b> · contact: <a href="mailto:asimcoder@proton.me">asimcoder@proton.me</a>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+const { invoke } = window.__TAURI__.core;
+const { listen } = window.__TAURI__.event;
+
+let peers = [], selectedId = null, settings = null, info = null;
+let pairQueue = [];
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function toast(msg){
+  const t = $('toast'); t.textContent = msg; t.style.display = 'block';
+  clearTimeout(t._h); t._h = setTimeout(()=>t.style.display='none', 2600);
+}
+function addLog(msg){
+  const d = document.createElement('div'); d.className='le';
+  d.innerHTML = '<b>'+new Date().toLocaleTimeString()+'</b> · '+esc(msg);
+  const l = $('logList'); l.prepend(d);
+  while(l.children.length > 200) l.lastChild.remove();
+}
+
+// ---------- peers ----------
+function renderPeers(){
+  const box = $('peers'); box.innerHTML = '';
+  if(!peers.length){ box.innerHTML = '<div class="empty">No devices found yet.<br>Make sure VrShare is open on your phone<br>and both are on the same WiFi.</div>'; return; }
+  for(const p of peers){
+    const el = document.createElement('div');
+    el.className = 'peer' + (p.id===selectedId ? ' sel' : '');
+    el.innerHTML =
+      '<div class="nm"><span class="odot"></span>'+esc(p.name)+
+      ' <span class="badge">'+esc(p.os||'?')+'</span>'+
+      (p.trusted ? ' <span class="badge trust">paired</span>' : '') + '</div>'+
+      '<div class="acts">'+
+      (p.trusted
+        ? '<button class="pbtn" data-a="file">📁 Send file</button>'+
+          '<button class="pbtn" data-a="clip">📋 Clipboard</button>'+
+          '<button class="pbtn" data-a="lock">🔒 Lock PC</button>'+
+          '<button class="pbtn danger" data-a="unpair">Unpair</button>'
+        : '<button class="pbtn" data-a="pair">🔗 Pair</button>')+
+      '</div>';
+    el.querySelectorAll('.pbtn').forEach(b => b.addEventListener('click', ev => {
+      ev.stopPropagation(); peerAction(p.id, b.dataset.a);
+    }));
+    el.addEventListener('click', ()=>{ selectedId = p.id; renderPeers(); updateSelInfo(); });
+    box.appendChild(el);
+  }
+}
+function updateSelInfo(){
+  const p = peers.find(x=>x.id===selectedId);
+  $('selInfo').textContent = p
+    ? ('Selected: '+p.name+' ('+p.ip+')'+(p.trusted?' — paired':' — not paired yet'))
+    : 'Select a device from the left to send files or clipboard.';
+}
+function needPeer(){ if(!selectedId){ toast('Pehle left se koi device select karo'); return false; } return true; }
+
+async function peerAction(id, a){
+  selectedId = id; renderPeers(); updateSelInfo();
+  try{
+    if(a==='pair'){
+      const st = await invoke('cmd_request_pair', {peerId:id});
+      toast(st==='approved' ? 'Already paired!' : 'Pair request sent — approve the PIN on the other device');
+      if(st==='pending') pollPair(id);
+    }
+    else if(a==='unpair'){ await invoke('cmd_unpair',{id}); toast('Unpaired'); }
+    else if(a==='file'){ await invoke('cmd_send_file',{peerId:id}); }
+    else if(a==='clip'){ await invoke('cmd_send_clipboard',{peerId:id}); toast('Clipboard sent'); }
+    else if(a==='lock'){ await invoke('cmd_system_action',{peerId:id, action:'lock'}); toast('Lock command sent'); }
+  }catch(e){ toast('Error: '+e); }
+}
+async function pollPair(id){
+  for(let i=0;i<20;i++){
+    await new Promise(r=>setTimeout(r,2000));
+    try{
+      const st = await invoke('cmd_poll_pair_status',{peerId:id});
+      if(st==='approved'){ toast('Paired! 🎉'); return; }
+      if(st!=='pending') return;
+    }catch(e){ return; }
+  }
+}
+
+// ---------- tabs ----------
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.tabbody').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on'); $('tb-'+t.dataset.t).classList.add('on');
+}));
+
+// ---------- files ----------
+$('btnPick').addEventListener('click', async ()=>{
+  if(!needPeer()) return;
+  try{ const names = await invoke('cmd_send_file',{peerId:selectedId});
+    if(names && names.length) toast('Sending: '+names.join(', '));
+  }catch(e){ toast('Error: '+e); }
+});
+const drop = $('drop');
+['dragover','dragenter'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
+listen('tauri://drag-drop', async e=>{
+  if(!needPeer()) return;
+  const paths = (e.payload && e.payload.paths) || [];
+  if(!paths.length) return;
+  try{ await invoke('cmd_send_paths',{peerId:selectedId, paths}); toast('Sending '+paths.length+' file(s)'); }
+  catch(err){ toast('Error: '+err); }
+});
+
+function fmtBytes(n){
+  if(n>1e9) return (n/1e9).toFixed(2)+' GB';
+  if(n>1e6) return (n/1e6).toFixed(1)+' MB';
+  if(n>1e3) return (n/1e3).toFixed(0)+' KB';
+  return n+' B';
+}
+function updateTransfer(t){
+  let el = document.getElementById('tr-'+t.id);
+  if(!el){
+    el = document.createElement('div'); el.className='trow'; el.id='tr-'+t.id;
+    $('transfers').prepend(el);
+  }
+  const pct = t.size ? Math.min(100, Math.round(t.received/t.size*100)) : 0;
+  el.innerHTML = '<div class="tn"><span>'+(t.direction==='up'?'⬆ ':'⬇ ')+esc(t.name)+'</span><span>'+(t.done?'✅':'⏳')+'</span></div>'+
+    '<div class="bar"><i style="width:'+pct+'%"></i></div>'+
+    '<div class="meta">'+fmtBytes(t.received)+(t.size?' / '+fmtBytes(t.size):'')+' · '+pct+'%'+(t.peer?' · '+esc(t.peer):'')+'</div>';
+}
+
+// ---------- clipboard ----------
+$('btnSendText').addEventListener('click', async ()=>{
+  if(!needPeer()) return;
+  const text = $('clipBox').value;
+  if(!text.trim()){ toast('Kuch likho pehle'); return; }
+  try{ await invoke('cmd_send_text',{peerId:selectedId, text, toClipboard:false}); toast('Text sent'); $('clipBox').value=''; }
+  catch(e){ toast('Error: '+e); }
+});
+$('btnSendClip').addEventListener('click', async ()=>{
+  if(!needPeer()) return;
+  try{ await invoke('cmd_send_clipboard',{peerId:selectedId}); toast('Clipboard sent'); }
+  catch(e){ toast('Error: '+e); }
+});
+$('chkSync').addEventListener('change', async e=>{
+  settings.auto_sync_clipboard = e.target.checked;
+  try{ await invoke('cmd_set_settings',{settings}); }catch(err){ toast('Error: '+err); }
+});
+function clipReceived(text){
+  const list = $('clipInList');
+  if(list.querySelector('.empty')) list.innerHTML='';
+  const d = document.createElement('div'); d.className='ci';
+  d.innerHTML = '<div class="ct">'+new Date().toLocaleTimeString()+'</div>'+esc(text);
+  list.prepend(d);
+}
+
+// ---------- pairing modal ----------
+function showPair(p){
+  pairQueue.push(p);
+  if(pairQueue.length===1) renderPair();
+}
+function renderPair(){
+  const p = pairQueue[0]; if(!p){ $('pairModal').classList.remove('on'); return; }
+  $('pairInfo').textContent = p.name+' ('+(p.os||'unknown device')+') wants to pair with this PC.';
+  $('pairPin').textContent = p.pin;
+  $('pairModal').classList.add('on');
+}
+$('btnAccept').addEventListener('click', async ()=>{
+  const p = pairQueue.shift(); renderPair();
+  if(!p) return;
+  try{ await invoke('cmd_approve_pair',{id:p.id}); toast('Paired with '+p.name+' 🎉'); }
+  catch(e){ toast('Error: '+e); }
+});
+$('btnReject').addEventListener('click', async ()=>{
+  const p = pairQueue.shift(); renderPair();
+  if(!p) return;
+  try{ await invoke('cmd_reject_pair',{id:p.id}); }catch(e){}
+});
+
+// ---------- settings ----------
+$('btnSettings').addEventListener('click', ()=>{
+  $('setDl').value = settings.download_dir;
+  $('setAuto').checked = settings.auto_accept_files;
+  $('setSync').checked = settings.auto_sync_clipboard;
+  $('chkSync').checked = settings.auto_sync_clipboard;
+  $('setModal').classList.add('on');
+});
+$('btnSetCancel').addEventListener('click', ()=>$('setModal').classList.remove('on'));
+$('btnSetSave').addEventListener('click', async ()=>{
+  settings.download_dir = $('setDl').value.trim();
+  settings.auto_accept_files = $('setAuto').checked;
+  settings.auto_sync_clipboard = $('setSync').checked;
+  $('chkSync').checked = settings.auto_sync_clipboard;
+  try{ await invoke('cmd_set_settings',{settings}); $('setModal').classList.remove('on'); toast('Settings saved'); }
+  catch(e){ toast('Error: '+e); }
+});
+
+// device name
+$('devName').addEventListener('keydown', async e=>{
+  if(e.key==='Enter'){
+    try{ await invoke('cmd_set_device_name',{name:$('devName').value}); info.name=$('devName').value; toast('Device name saved'); }
+    catch(err){ toast('Error: '+err); }
+  }
+});
+
+// ---------- events ----------
+listen('peers', e=>{ peers = e.payload||[]; renderPeers(); updateSelInfo(); });
+listen('pair-request', e=>showPair(e.payload));
+listen('transfer-progress', e=>updateTransfer(e.payload));
+listen('log', e=>addLog(e.payload));
+listen('text-received', e=>{ clipReceived(e.payload.text); addLog('Text received ('+e.payload.text.length+' chars)'); });
+listen('clipboard-received', e=>{ clipReceived(e.payload.text); });
+
+// ---------- init ----------
+(async ()=>{
+  try{
+    info = await invoke('cmd_get_info');
+    settings = info.settings;
+    $('devName').value = info.name;
+    $('ver').textContent = info.version;
+    $('chkSync').checked = settings.auto_sync_clipboard;
+    peers = await invoke('cmd_get_peers');
+    renderPeers(); updateSelInfo();
+    const pending = await invoke('cmd_get_pending');
+    pending.forEach(showPair);
+    addLog('VrShare ready. Your fingerprint: '+info.fp.slice(0,16)+'…');
+  }catch(e){ addLog('Init error: '+e); }
+})();
+</script>
+</body>
+</html>

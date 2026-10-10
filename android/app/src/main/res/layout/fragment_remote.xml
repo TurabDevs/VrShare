@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/target_text"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+            <Button
+                android:id="@+id/change_button"
+                style="@style/Widget.Material3.Button.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change" />
+        </LinearLayout>
+
+        <com.vrshare.app.ui.TouchpadView
+            android:id="@+id/touchpad"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/touchpad_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/touchpad_hint"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="@string/left_click" />
+
+            <Button
+                android:id="@+id/btn_right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/right_click" />
+
+            <Button
+                android:id="@+id/btn_keyboard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="4dp"
+                android:text="@string/keyboard" />
+        </LinearLayout>
+
+        <!-- Hidden input used to summon the soft keyboard -->
+        <EditText
+            android:id="@+id/keyboard_input"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:background="@android:color/transparent"
+            android:inputType="text"
+            android:imeOptions="actionDone" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:columnCount="4"
+            android:useDefaultMargins="true">
+
+            <Button android:id="@+id/key_enter" android:text="Enter" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_backspace" android:text="Bksp" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_esc" android:text="Esc" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_tab" android:text="Tab" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_up" android:text="↑" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_down" android:text="↓" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_left" android:text="←" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/key_right" android:text="→" style="@style/Widget.Material3.Button.OutlinedButton" />
+        </GridLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="System"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:useDefaultMargins="true">
+
+            <Button android:id="@+id/sys_lock" android:text="@string/lock" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/sys_sleep" android:text="@string/sleep" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/sys_screen_off" android:text="@string/screen_off" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/sys_shutdown" android:text="@string/shutdown" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/sys_restart" android:text="@string/restart" style="@style/Widget.Material3.Button.OutlinedButton" />
+        </GridLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Media"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <Button android:id="@+id/media_prev" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="⏮" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/media_play" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="⏯" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/media_next" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="⏭" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/vol_down" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="🔉" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/vol_up" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="🔊" style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button android:id="@+id/vol_mute" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="🔇" style="@style/Widget.Material3.Button.OutlinedButton" />
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VrShare</string>
+
+    <!-- Bottom nav -->
+    <string name="nav_devices">Devices</string>
+    <string name="nav_remote">Remote</string>
+    <string name="nav_files">Files</string>
+    <string name="nav_clipboard">Clipboard</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Devices -->
+    <string name="nearby_devices">Nearby devices</string>
+    <string name="trusted_devices">Trusted devices</string>
+    <string name="no_devices">No devices found yet.\nMake sure VrShare is running on your PC and both are on the same Wi-Fi.</string>
+    <string name="connect">Connect</string>
+    <string name="unpair">Unpair</string>
+    <string name="use_for_remote">Use</string>
+    <string name="online">Online</string>
+    <string name="offline">Offline</string>
+    <string name="pairing_title">Pairing with %1$s</string>
+    <string name="pairing_wait">Waiting for approval on your PC…\nA 6-digit PIN is shown there. Tap Accept.</string>
+    <string name="pairing_fp">PC fingerprint: %1$s</string>
+    <string name="pairing_rejected">Pairing rejected on PC</string>
+    <string name="pairing_timeout">Pairing timed out</string>
+    <string name="pairing_failed">Pairing failed: %1$s</string>
+    <string name="unpaired_msg">Device unpaired</string>
+    <string name="cancel">Cancel</string>
+
+    <!-- Remote -->
+    <string name="remote_target">Controlling: %1$s</string>
+    <string name="remote_no_target">No trusted device selected.\nPair a device first on the Devices tab.</string>
+    <string name="change">Change</string>
+    <string name="touchpad_hint">Touchpad — drag to move, tap to click</string>
+    <string name="left_click">Left</string>
+    <string name="right_click">Right</string>
+    <string name="keyboard">Keyboard</string>
+    <string name="lock">Lock</string>
+    <string name="sleep">Sleep</string>
+    <string name="screen_off">Screen off</string>
+    <string name="shutdown">Shutdown</string>
+    <string name="restart">Restart</string>
+    <string name="confirm_shutdown">Shut down %1$s now?</string>
+    <string name="confirm_restart">Restart %1$s now?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="sent">Sent</string>
+    <string name="action_failed">Failed: %1$s</string>
+
+    <!-- Files -->
+    <string name="send_files">Send files</string>
+    <string name="transfers">Transfers</string>
+    <string name="transfer_history">History</string>
+    <string name="no_transfers">No transfers yet</string>
+    <string name="state_queued">Queued</string>
+    <string name="state_uploading">Uploading</string>
+    <string name="state_done">Done</string>
+    <string name="state_failed">Failed</string>
+    <string name="state_cancelled">Cancelled</string>
+
+    <!-- Clipboard -->
+    <string name="clipboard_hint">Type text to send…</string>
+    <string name="send">Send</string>
+    <string name="send_as_clipboard">Also set as PC clipboard</string>
+    <string name="auto_sync">Auto-sync clipboard</string>
+    <string name="auto_sync_desc">Watch this phone\u2019s clipboard and push changes to the PC, and pull the PC\u2019s clipboard here.</string>
+    <string name="pull_from_pc">Pull from PC</string>
+    <string name="clipboard_history">Recent</string>
+    <string name="copied">Copied to clipboard</string>
+
+    <!-- Settings -->
+    <string name="device_name">Device name</string>
+    <string name="save">Save</string>
+    <string name="device_name_saved">Device name saved</string>
+    <string name="about_title">About</string>
+    <string name="about_text">VrShare 1.0.0\nProtocol v1\n\nDeveloped by Asim\nContact: asimcoder@proton.me\n\nLAN only — your files never leave your Wi-Fi. No cloud, no accounts.</string>
+    <string name="device_unpaired_notice">This device was unpaired. Please pair again from the Devices tab.</string>
+</resources>
