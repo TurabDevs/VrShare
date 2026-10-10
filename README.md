@@ -112,4 +112,4 @@ PolyForm-Noncommercial-1.0.0 — free to use and share for non-commercial purpos
 ## Developer
 
 VrShare is developed by **Turab**.
-Contact: **asimcoder@proton.me**
+Contact: **TurabDev@proton.me**
