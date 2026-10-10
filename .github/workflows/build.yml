@@ -52,8 +52,10 @@ jobs:
       run:
         shell: pwsh
     steps:
-      - name: Checkout
+      - name: Checkout latest main (includes bootstrapped source)
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Restore binary assets (icons stored as base64 text in repo)
         run: |
@@ -80,7 +82,6 @@ jobs:
         with:
           projectPath: desktop/src-tauri
           tauriScript: cargo tauri
-          # No tagName/releaseId -> build only; the release job below publishes.
 
       - name: Upload Windows installer
         uses: actions/upload-artifact@v4
@@ -95,8 +96,10 @@ jobs:
     needs: bootstrap-source
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout latest main (includes bootstrapped source)
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Restore Gradle wrapper jar (stored as base64 text in repo)
         working-directory: android
@@ -118,9 +121,6 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon
-        # NOTE: unsigned release APK. For a signed release, add keystore
-        # secrets (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD)
-        # and a signing step before upload.
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -146,8 +146,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release view v1.0.0 >/dev/null 2>&1 || gh release create v1.0.0 \
-            --title "VrShare v1.0.0" \
-            --notes "First public release of VrShare — free LAN file sharing, clipboard sync, remote mouse/keyboard and PC control for Windows + Android. No cloud, no accounts. License: PolyForm-Noncommercial-1.0.0 (free for non-commercial use)."
+          gh release view v1.0.0 >/dev/null 2>&1 || gh release create v1.0.0 --title "VrShare v1.0.0" --notes "First public release of VrShare."
           find artifacts -type f \( -name "*.exe" -o -name "*.apk" \) -exec gh release upload v1.0.0 {} --clobber \;
           echo "Release published."
