@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VrShare — Free LAN File Sharing for Windows + Android</title>
+  <meta name="description" content="VrShare is a free LAN file-sharing app for Windows and Android. Share files, sync clipboard, control your mouse and power your PC — all over your home Wi-Fi. No cloud, no accounts.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav">
+    <div class="container nav-inner">
+      <a href="#top" class="brand">
+        <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+          <defs>
+            <linearGradient id="vgrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#22d3ee"/>
+              <stop offset="1" stop-color="#8b5cf6"/>
+            </linearGradient>
+          </defs>
+          <path d="M6 8 L24 42 L42 8 L33 8 L24 28 L15 8 Z" fill="url(#vgrad)"/>
+        </svg>
+        <span>VrShare</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#features">Features</a>
+        <a href="#how">How it works</a>
+        <a href="#about">About</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="btn btn-sm" href="https://github.com/theasxd/VrShare/releases/tag/v1.0.0">Download</a>
+        <button class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="top">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <div class="hero-badge">v1.0.0 &nbsp;·&nbsp; Free &amp; open source</div>
+      <h1>Share anything.<br><span class="grad-text">Over your own Wi-Fi.</span></h1>
+      <p class="hero-sub">VrShare moves files between your Windows PC and Android phone over your home network — plus clipboard sync, remote mouse &amp; keyboard, and PC power control. No cloud, no accounts, no tracking.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://github.com/theasxd/VrShare/releases/tag/v1.0.0">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v12H4z" fill="none"/><path d="M12 3v10m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Download for Windows
+        </a>
+        <a class="btn btn-ghost" href="https://github.com/theasxd/VrShare/releases/tag/v1.0.0">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><line x1="11" y="18.5" x2="13" y="18.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          Download for Android
+        </a>
+      </div>
+      <p class="hero-note">Windows 10/11 &nbsp;·&nbsp; Android 8.0+ &nbsp;·&nbsp; Same Wi-Fi network</p>
+    </div>
+  </section>
+
+  <!-- ================= FEATURES ================= -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Everything you need, <span class="grad-text">nothing you don't</span></h2>
+      <p class="section-sub">One app on your PC, one on your phone. They find each other and just work.</p>
+      <div class="grid">
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><path d="M14 2v6h6M12 18v-6m0 0l-2.5 2.5M12 12l2.5 2.5" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>File Sharing</h3>
+          <p>Send files and folders between PC and phone at full Wi-Fi speed. No size limits, no compression, no waiting on uploads.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M16 8V6a2 2 0 00-2-2H6a2 2 0 00-2 2v8a2 2 0 002 2h2" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+          <h3>Clipboard Sync</h3>
+          <p>Copy on your phone, paste on your PC — and the other way around. Text and links move instantly between devices.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="18" rx="5" stroke="currentColor" stroke-width="2" fill="none"/><line x1="12" y="7" x2="12" y="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3>Remote Mouse &amp; Keyboard</h3>
+          <p>Turn your phone into a wireless touchpad and keyboard. Control presentations or your media PC from the couch.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2v10m0 0" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M6.3 6.3a8 8 0 1011.4 0" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+          <h3>PC Power Control</h3>
+          <p>Lock, sleep, restart or shut down your Windows PC straight from your phone. Never get up mid-movie again.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="2" stroke="currentColor" stroke-width="2" fill="none"/><path d="M8 10V7a4 4 0 018 0v3" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/></svg></div>
+          <h3>PIN Pairing + TLS</h3>
+          <p>Devices pair with a one-time PIN and pin each other's TLS certificates. Every session is encrypted end to end on your LAN.</p>
+        </div>
+        <div class="card">
+          <div class="icon"><svg viewBox="0 0 24 24"><path d="M17.5 19a4.5 4.5 0 100-9 6 6 0 00-11.6 1.6A4 4 0 007 19h10.5z" stroke="currentColor" stroke-width="2" fill="none" stroke-linejoin="round"/><line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>
+          <h3>No Cloud, Ever</h3>
+          <p>Traffic never leaves your Wi-Fi. No servers, no accounts, no sign-ups, no analytics phoning home. Your files stay yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="section section-alt" id="how">
+    <div class="container">
+      <h2 class="section-title">Up and running in <span class="grad-text">a minute</span></h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Install both apps</h3>
+          <p>Grab the Windows installer and the Android APK from the release page. Install on the same Wi-Fi network.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Pair with a PIN</h3>
+          <p>Open VrShare on both devices, pick your PC from the list, and confirm the one-time PIN. Certificates are pinned automatically.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Share away</h3>
+          <p>Drop files, sync your clipboard, drive your mouse, or power off your PC — all from your phone, all on your LAN.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section" id="about">
+    <div class="container about">
+      <div>
+        <h2 class="section-title">Built for people who <span class="grad-text">own their data</span></h2>
+        <p>VrShare is a free, open-source alternative to cloud-based sharing tools. It was built for one simple reason: moving a file between two devices sitting three metres apart shouldn't require uploading it to a server on another continent.</p>
+        <p>The Windows app is written in <strong>Rust</strong> (Tauri v2) and the Android app in <strong>Kotlin</strong> — small, fast, and native. The protocol is documented and open, so anyone can audit how it works.</p>
+        <p class="contact">Questions or feedback? <a href="mailto:TurabDev@proton.me">TurabDev@proton.me</a></p>
+      </div>
+      <div class="about-card">
+        <h3>At a glance</h3>
+        <ul>
+          <li><span>Platforms</span><strong>Windows 10/11 · Android 8.0+</strong></li>
+          <li><span>Network</span><strong>Local Wi-Fi only</strong></li>
+          <li><span>Price</span><strong>Free, forever</strong></li>
+          <li><span>License</span><strong>PolyForm-Noncommercial-1.0.0</strong></li>
+          <li><span>Source</span><strong><a href="https://github.com/theasxd/VrShare">github.com/theasxd/VrShare</a></strong></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section section-alt" id="faq">
+    <div class="container faq-wrap">
+      <h2 class="section-title">Frequently asked <span class="grad-text">questions</span></h2>
+      <div class="faq">
+        <details open>
+          <summary>Is VrShare really free?</summary>
+          <p>Yes. VrShare is free for non-commercial use under the PolyForm-Noncommercial-1.0.0 license. There are no premium tiers, no ads, and no feature gates.</p>
+        </details>
+        <details>
+          <summary>Does it need an internet connection?</summary>
+          <p>No. VrShare works entirely on your local Wi-Fi network. Your router doesn't even need internet access — just both devices on the same LAN.</p>
+        </details>
+        <details>
+          <summary>Is my data private?</summary>
+          <p>Your files never leave your network. Devices pair with a one-time PIN, pin each other's TLS certificates, and every transfer is encrypted. There are no accounts and no telemetry.</p>
+        </details>
+        <details>
+          <summary>Which devices are supported?</summary>
+          <p>Windows 10/11 (64-bit) and Android 8.0 or newer. Both devices must be on the same Wi-Fi network to discover each other.</p>
+        </details>
+        <details>
+          <summary>Where do I report a bug?</summary>
+          <p>Open an issue on the <a href="https://github.com/theasxd/VrShare/issues">GitHub repository</a> or email <a href="mailto:TurabDev@proton.me">TurabDev@proton.me</a>.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA ================= -->
+  <section class="cta">
+    <div class="container cta-inner">
+      <h2>Ready to cut the cloud <span class="grad-text">out of the loop?</span></h2>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="https://github.com/theasxd/VrShare/releases/tag/v1.0.0">Download VrShare v1.0.0</a>
+        <a class="btn btn-ghost" href="https://github.com/theasxd/VrShare">View source on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="brand">
+          <svg class="brand-mark" viewBox="0 0 48 48" aria-hidden="true">
+            <path d="M6 8 L24 42 L42 8 L33 8 L24 28 L15 8 Z" fill="url(#vgrad)"/>
+          </svg>
+          <span>VrShare</span>
+        </span>
+        <p>Free LAN sharing for Windows + Android.<br>Licensed under PolyForm-Noncommercial-1.0.0 — free for non-commercial use.</p>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/theasxd/VrShare">GitHub</a>
+        <a href="https://github.com/theasxd/VrShare/releases/tag/v1.0.0">Releases</a>
+        <a href="https://github.com/theasxd/VrShare/issues">Issues</a>
+        <a href="mailto:TurabDev@proton.me">Contact</a>
+      </div>
+    </div>
+    <div class="container footer-base">© 2026 VrShare · Made for people who own their data.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
